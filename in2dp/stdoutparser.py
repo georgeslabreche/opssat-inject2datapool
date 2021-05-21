@@ -75,7 +75,7 @@ class StdoutParser:
 
         return stats_json
 
-    def parse_fpeg_image_loaded(self, stdout):
+    def parse_fpga_image_loaded(self, stdout):
         '''Parse the stdout string returned from invoking the devmem command'''
 
         if stdout == 'Bus error (core dumped)':
