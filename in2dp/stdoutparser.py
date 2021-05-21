@@ -1,5 +1,13 @@
 # -*- coding: utf-8 -*-
 
+from enum import Enum
+
+class RescueShellStatus(Enum):
+    RUNNING     = 0
+    MAINTENANCE = 1
+    DEGRADED    = 2
+    OTHER       = 3
+
 class StdoutParser:
     '''Parses given stdout strings'''
 
@@ -74,4 +82,15 @@ class StdoutParser:
             return 0xffffffff
         else:
             return int(stdout, 16)
-        
+
+    def parse_rescue_shell_status(self, stdout):
+        '''Parse the stdout string returned from invoking the rescue shell status command'''
+
+        if stdout == 'running':
+            return RescueShellStatus.RUNNING
+        elif stdout == 'maintenance':
+            return RescueShellStatus.MAINTENANCE
+        elif stdout == 'degraded':
+            return RescueShellStatus.DEGRADED
+        else:
+            return RescueShellStatus.OTHER

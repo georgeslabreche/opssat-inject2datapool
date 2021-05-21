@@ -1,6 +1,8 @@
 # -*- coding: utf-8 -*-
 
 class MockShellProxy:
+    '''Mock shell command stdouts for unit testing the stdout parse'''
+    
     def uptime(self):
         return 40112
 

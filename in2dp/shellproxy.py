@@ -44,6 +44,9 @@ class ShellProxy:
         '''the image loaded in the FPGA'''
         return subprocess.check_output(f'devmem {self.devmem_address}', shell=True).decode('utf-8')
 
-    def is_dual_core(self):
+    def dual_core(self):
         '''is dual core enabled'''
         return int(subprocess.check_output("cat /proc/cpuinfo | grep processor | wc -l", shell=True).decode('utf-8'))
+
+    def rescue_shell_status(self):
+        return subprocess.check_output("systemctl status | head -n2 | tail -n1 | awk '{print $2}'", shell=True).decode('utf-8')
