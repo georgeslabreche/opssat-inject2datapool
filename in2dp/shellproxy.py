@@ -5,6 +5,13 @@ import subprocess
 class ShellProxy:
     '''Execute shell commands'''
 
+    # fpga image address to use for the devmem shell command
+    devmem_address = '0xff200004'
+
+    # toGround and toGroundLP directory paths
+    dir_path_toGround = '/home/root/esoc-apps/fms/filestore/toGround'
+    dir_path_toGroundLP = '/home/root/esoc-apps/fms/filestore/toGroundLP'
+
     def uptime(self):
         '''os uptime in seconds'''
         return int(subprocess.check_output("awk '{print int($1)}' /proc/uptime", shell=True).decode('utf-8'))
@@ -15,15 +22,11 @@ class ShellProxy:
 
     def cpu_usage(self):
         '''cpu usage'''
-
-        # todo: top -n1 | head -n2
-        pass
+        return subprocess.check_output('top -n1 | head -n2 | tail -n1', shell=True).decode('utf-8')
 
     def disk_usage(self):
         '''disk usage'''
-
-        # todo: df -m | head -n2
-        pass
+        return subprocess.check_output('df -m | head -n2', shell=True).decode('utf-8')
 
     def oom_counter(self):
         '''out of memory counter'''
@@ -32,15 +35,14 @@ class ShellProxy:
     def toGround_files_counter(self):
         '''count files in toGround and toGroundLP folders'''
         
-        toGround_count = subprocess.check_output("'ls -F | grep -v /home/root/esoc-apps/fms/filestore/toGround | wc -l'", shell=True).decode('utf-8')
-        toGroundLP_count = subprocess.check_output("'ls -F | grep -v /home/root/esoc-apps/fms/filestore/toGroundLP | wc -l'", shell=True).decode('utf-8')
+        toGround_count = subprocess.check_output(f"'ls -F | grep -v {self.dir_path_toGround} | wc -l'", shell=True).decode('utf-8')
+        toGroundLP_count = subprocess.check_output(f"'ls -F | grep -v {self.dir_path_toGroundLP} | wc -l'", shell=True).decode('utf-8')
         
         return int(toGround_count), int(toGroundLP_count)
 
     def fpga_image_loaded(self):
         '''the image loaded in the FPGA'''
-        # todo: devmem 0xff200004
-        pass
+        return subprocess.check_output(f'devmem {self.devmem_address}', shell=True).decode('utf-8')
 
     def is_dual_core(self):
         '''is dual core enabled'''
