@@ -16,7 +16,7 @@ def init_logger():
     log_file = 'run.log'
 
     # max 5 megabyte log file
-    my_handler = RotatingFileHandler(log_file, mode='a', maxBytes=5*1024*1024, 
+    my_handler = RotatingFileHandler(log_file, mode='a', maxBytes=2*1024*1024, 
                                     backupCount=2, encoding=None, delay=0)
 
     # set logging stuff
@@ -107,7 +107,7 @@ def run():
     # core
     try:
         sepp_stats['core'] = shell.core_counter()
-        
+
     except Exception:
         logger.error('Error fetching number of cores enabled', exc_info=True)
 
