@@ -90,7 +90,7 @@ def run():
 
     # out of memory counter
     try:
-        sepp_stats['oom'] = shell.oom_counter(),
+        sepp_stats['oom'] = shell.oom_counter()
 
     except Exception:
         logger.error('Error fetching out of memory counter', exc_info=True)
@@ -98,7 +98,7 @@ def run():
     # filestore toGround and toGroundLP file count
     try:
         toGround_stdout = shell.toGround_files_counter()
-        sepp_stats['toGround'] - toGround_stdout[0],
+        sepp_stats['toGround'] - toGround_stdout[0]
         sepp_stats['toGroundLP'] =  toGround_stdout[1]
 
     except Exception:
@@ -115,7 +115,7 @@ def run():
     try:
         rescue_shell_stdout = shell.rescue_shell_status()
         rescue_shell_status = parser.parse_rescue_shell_status(rescue_shell_stdout)
-        sepp_stats['rescue_shell'] = rescue_shell_status,
+        sepp_stats['rescue_shell'] = rescue_shell_status
 
     except Exception:
         logger.error('Error fetching rescue shell status', exc_info=True)
