@@ -30,7 +30,7 @@ class ShellProxy:
 
     def oom_counter(self):
         '''out of memory counter'''
-        return int(subprocess.check_output("dmesg | grep -c 'Out of memory'", shell=True).decode('utf-8'))
+        return int(subprocess.check_output("dmesg | { grep -c 'Out of memory' || true }", shell=True).decode('utf-8'))
 
     def toGround_files_counter(self):
         '''count files in toGround and toGroundLP folders'''
