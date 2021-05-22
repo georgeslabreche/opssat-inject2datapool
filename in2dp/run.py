@@ -98,8 +98,9 @@ def run():
     # filestore toGround and toGroundLP file count
     try:
         toGround_stdout = shell.toGround_files_counter()
-        sepp_stats['toGround'] = toGround_stdout[0]
-        sepp_stats['toGroundLP'] =  toGround_stdout[1]
+        sepp_stats['toGround'] = {}
+        sepp_stats['toGround']['hp'] = toGround_stdout[0]
+        sepp_stats['toGround']['lp'] = toGround_stdout[1]
 
     except Exception:
         logger.error('Error fetching file count in toGround and toGroundLP', exc_info=True)
