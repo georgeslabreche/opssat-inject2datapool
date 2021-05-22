@@ -35,18 +35,18 @@ class ShellProxy:
     def toGround_files_counter(self):
         '''count files in toGround and toGroundLP folders'''
         
-        toGround_count = subprocess.check_output(f"'ls -F | grep -v {self.dir_path_toGround} | wc -l'", shell=True).decode('utf-8')
-        toGroundLP_count = subprocess.check_output(f"'ls -F | grep -v {self.dir_path_toGroundLP} | wc -l'", shell=True).decode('utf-8')
+        toGround_count = subprocess.check_output('ls -F | grep -v {} | wc -l'.format(self.dir_path_toGround), shell=True).decode('utf-8')
+        toGroundLP_count = subprocess.check_output('ls -F | grep -v {} | wc -l'.format(self.dir_path_toGroundLP), shell=True).decode('utf-8')
         
         return int(toGround_count), int(toGroundLP_count)
 
     def fpga_image_loaded(self):
         '''the image loaded in the FPGA'''
-        return subprocess.check_output(f'devmem {self.devmem_address}', shell=True).decode('utf-8')
+        return subprocess.check_output('devmem {}'.format(self.devmem_address), shell=True).decode('utf-8')
 
     def core_counter(self):
         '''count the number of cores'''
-        return int(subprocess.check_output("cat /proc/cpuinfo | grep processor | wc -l", shell=True).decode('utf-8'))
+        return int(subprocess.check_output('cat /proc/cpuinfo | grep processor | wc -l', shell=True).decode('utf-8'))
 
     def rescue_shell_status(self):
         return subprocess.check_output("systemctl status | head -n2 | tail -n1 | awk '{print $2}'", shell=True).decode('utf-8')
