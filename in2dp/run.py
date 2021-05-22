@@ -98,7 +98,7 @@ def run():
     # filestore toGround and toGroundLP file count
     try:
         toGround_stdout = shell.toGround_files_counter()
-        sepp_stats['toGround'] - toGround_stdout[0]
+        sepp_stats['toGround'] = toGround_stdout[0]
         sepp_stats['toGroundLP'] =  toGround_stdout[1]
 
     except Exception:
